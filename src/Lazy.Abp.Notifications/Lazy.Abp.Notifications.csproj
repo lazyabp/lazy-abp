@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EventBus" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Json" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+</Project>
