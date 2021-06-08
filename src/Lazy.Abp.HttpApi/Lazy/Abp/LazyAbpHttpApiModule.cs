@@ -10,6 +10,7 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Account;
 using Volo.Abp.TenantManagement;
 using Lazy.Abp.Core;
+using Lazy.Abp.Files;
 
 namespace Lazy.Abp
 {
@@ -35,12 +36,16 @@ namespace Lazy.Abp
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            var configuration = context.Services.GetConfiguration();
+
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
                     .Get<LazyAbpResource>()
                     .AddBaseTypes(typeof(AbpUiResource));
             });
+
+            Configure<UploadTokenVerifyOption>(configuration.GetSection("FastDFSProxy:Default"));
         }
     }
 }

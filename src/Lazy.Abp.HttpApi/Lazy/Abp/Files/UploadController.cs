@@ -1,8 +1,11 @@
 ﻿using Lazy.Abp.Core.Proxy;
 using Lazy.Abp.Core.Proxy.Dtos;
 using Lazy.Abp.Files.Dto;
+using Lazy.Abp.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +22,27 @@ namespace Lazy.Abp.Files
     {
         private readonly IMediaAppService _service;
         private readonly IFastDFSProxyService _fastDFSService;
+        private readonly UploadTokenVerifyOption _uploadTokenVerifyOption;
 
         public UploadController(
             IMediaAppService service,
-            IFastDFSProxyService fastDFSService
+            IFastDFSProxyService fastDFSService,
+            IOptions<UploadTokenVerifyOption> options
         )
         {
             _service = service;
             _fastDFSService = fastDFSService;
+
+            _uploadTokenVerifyOption = options.Value;
         }
 
         [HttpPost]
         [Route("url")]
-        public async Task<MediaDto> UploadUrlAsync(FastDFSFileUrlRequestDto input)
+        public async Task<MediaDto> UploadUrlAsync(UploadUrlRequestDto input)
         {
-            var file = await _fastDFSService.UploadUrlAsync(input);
+            await AuthorizationService.CheckAsync(LazyAbpPermissions.Media.Create);
+
+            var file = await _fastDFSService.UploadUrlAsync(input.Url);
 
             return await _service.CreateAsync(new MediaCreateDto
             {
@@ -52,9 +61,11 @@ namespace Lazy.Abp.Files
 
         [HttpPost]
         [Route("bulk-urls")]
-        public async Task<List<MediaDto>> UploadUrlsAsync(FastDFSFileUrlsRequestDto input)
+        public async Task<List<MediaDto>> UploadUrlsAsync(UploadUrlsRequestDto input)
         {
-            var response = await _fastDFSService.UploadUrlsAsync(input);
+            await AuthorizationService.CheckAsync(LazyAbpPermissions.Media.Create);
+
+            var response = await _fastDFSService.UploadUrlsAsync(input.Urls);
             var result = new List<MediaDto>();
 
             foreach(var file in response.Data)
@@ -81,22 +92,27 @@ namespace Lazy.Abp.Files
 
         [HttpPost]
         [Route("stream")]
-        public async Task<MediaDto> UploadStreamAsync([FromForm] IFormCollection formCollection)
+        public async Task<MediaDto> UploadStreamAsync(IFormFile file)
         {
-            var file = await _fastDFSService.UploadStreamAsync(formCollection);
+            await AuthorizationService.CheckAsync(LazyAbpPermissions.Media.Create);
+
+            var fileCollection = new FormFileCollection();
+            fileCollection.Add(file);
+
+            var response = await _fastDFSService.UploadStreamAsync(file);
 
             return await _service.CreateAsync(new MediaCreateDto
             {
-                Url = file.Data.Url,
-                Md5 = file.Data.Md5,
-                MimeType = "",
-                Path = file.Data.Path,
-                Domain = file.Data.Domain,
-                Scene = file.Data.Scene,
-                Size = file.Data.Size,
-                Mtime = file.Data.MTime,
-                Scenes = file.Data.Scenes,
-                Src = file.Data.Src
+                Url = response.Data.Url,
+                Md5 = response.Data.Md5,
+                MimeType = file.ContentType,
+                Path = response.Data.Path,
+                Domain = response.Data.Domain,
+                Scene = response.Data.Scene,
+                Size = response.Data.Size,
+                Mtime = response.Data.MTime,
+                Scenes = response.Data.Scenes,
+                Src = response.Data.Src
             });
         }
 
@@ -104,6 +120,8 @@ namespace Lazy.Abp.Files
         [Route("base64")]
         public async Task<MediaDto> UploadBase64Async(FastDFSFileBase64RequestDto input)
         {
+            await AuthorizationService.CheckAsync(LazyAbpPermissions.Media.Create);
+
             var file = await _fastDFSService.UploadBase64Async(input);
 
             return await _service.CreateAsync(new MediaCreateDto
@@ -119,6 +137,20 @@ namespace Lazy.Abp.Files
                 Scenes = file.Data.Scenes,
                 Src = file.Data.Src
             });
+        }
+
+        [HttpGet]
+        [Route("token-verify/{auth_token}")]
+        public ActionResult TokenVerify(string auth_token)
+        {
+            var input = $"{_uploadTokenVerifyOption.Username}.{_uploadTokenVerifyOption.Password}";
+            var md5 = Lazy.Abp.Core.Helpers.CommonHelper.Md5(input);
+
+            var verify = md5.Equals(auth_token);
+            if (verify)
+                return Ok("ok");
+            else
+                return BadRequest("failed");
         }
     }
 }

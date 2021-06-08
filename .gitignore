@@ -252,9 +252,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
-# FreeTime
-host/Lazy.Abp.FreeTime.IdentityServer/Logs/logs.txt
-host/Lazy.Abp.FreeTime.HttpApi.Host/Logs/logs.txt
-host/Lazy.Abp.FreeTime.Web.Host/Logs/logs.txt
-host/Lazy.Abp.FreeTime.Web.Unified/Logs/logs.txt
