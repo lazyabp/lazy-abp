@@ -140,17 +140,25 @@ namespace Lazy.Abp.Files
         }
 
         [HttpGet]
-        [Route("token-verify/{auth_token}")]
-        public ActionResult TokenVerify(string auth_token)
+        [Route("token-verify")]
+        public ActionResult TokenVerify()
         {
-            var input = $"{_uploadTokenVerifyOption.Username}.{_uploadTokenVerifyOption.Password}";
-            var md5 = Lazy.Abp.Core.Helpers.CommonHelper.Md5(input);
+            var state = Request.Query.TryGetValue("auth_token", out Microsoft.Extensions.Primitives.StringValues authToken);
+            if (state)
+            {
+                var input = $"{_uploadTokenVerifyOption.Username}.{_uploadTokenVerifyOption.Password}";
+                var md5 = Lazy.Abp.Core.Helpers.CommonHelper.Md5(input);
 
-            var verify = md5.Equals(auth_token);
-            if (verify)
-                return Ok("ok");
+                var verify = md5.Equals(authToken);
+                if (verify)
+                    return Ok("ok");
+                else
+                    return BadRequest("failed");
+            }
             else
+            {
                 return BadRequest("failed");
+            }
         }
     }
 }
