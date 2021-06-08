@@ -96,9 +96,6 @@ namespace Lazy.Abp.Files
         {
             await AuthorizationService.CheckAsync(LazyAbpPermissions.Media.Create);
 
-            var fileCollection = new FormFileCollection();
-            fileCollection.Add(file);
-
             var response = await _fastDFSService.UploadStreamAsync(file);
 
             return await _service.CreateAsync(new MediaCreateDto
@@ -139,11 +136,11 @@ namespace Lazy.Abp.Files
             });
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("token-verify")]
         public ActionResult TokenVerify()
         {
-            var state = Request.Query.TryGetValue("auth_token", out Microsoft.Extensions.Primitives.StringValues authToken);
+            var state = Request.Form.TryGetValue("auth_token", out Microsoft.Extensions.Primitives.StringValues authToken);
             if (state)
             {
                 var input = $"{_uploadTokenVerifyOption.Username}.{_uploadTokenVerifyOption.Password}";
