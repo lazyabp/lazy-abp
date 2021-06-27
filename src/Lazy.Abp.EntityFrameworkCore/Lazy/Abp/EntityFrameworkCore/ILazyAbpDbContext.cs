@@ -11,6 +11,5 @@ namespace Lazy.Abp.EntityFrameworkCore
         /* Add DbSet for each Aggregate Root here. Example:
          * DbSet<Question> Questions { get; }
          */
-        DbSet<Media> Medias { get; }
     }
 }

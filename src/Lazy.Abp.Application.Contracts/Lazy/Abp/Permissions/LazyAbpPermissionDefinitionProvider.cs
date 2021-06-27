@@ -15,10 +15,6 @@ namespace Lazy.Abp.Permissions
 
             var noticeGroup = group.AddPermission(LazyAbpPermissions.Notification.Default, L("Permission:Notification"));
             noticeGroup.AddChild(LazyAbpPermissions.Notification.Delete, L("Permission:Delete"));
-
-            var mediaGroup = group.AddPermission(LazyAbpPermissions.Media.Default, L("Permission:Media"));
-            mediaGroup.AddChild(LazyAbpPermissions.Media.Create, L("Permission:Create"));
-            mediaGroup.AddChild(LazyAbpPermissions.Media.Delete, L("Permission:Delete"));
         }
 
         private static LocalizableString L(string name)

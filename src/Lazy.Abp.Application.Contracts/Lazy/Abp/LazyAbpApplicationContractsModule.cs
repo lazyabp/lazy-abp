@@ -8,11 +8,13 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.ObjectExtending;
+using Lazy.Abp.MediaKit;
 
 namespace Lazy.Abp
 {
     [DependsOn(
         typeof(LazyAbpDomainSharedModule),
+        typeof(MediaKitApplicationContractsModule),
         typeof(AbpDddApplicationContractsModule),
         typeof(AbpAuthorizationModule),
         typeof(AbpAccountApplicationContractsModule),

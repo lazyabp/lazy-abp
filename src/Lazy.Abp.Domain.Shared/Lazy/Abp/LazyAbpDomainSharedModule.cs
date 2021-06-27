@@ -13,11 +13,13 @@ using Volo.Abp.AuditLogging;
 using Volo.Abp.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.BackgroundJobs;
+using Lazy.Abp.MediaKit;
 
 namespace Lazy.Abp
 {
     [DependsOn(
         typeof(AbpValidationModule),
+        typeof(MediaKitDomainSharedModule),
         typeof(AbpBackgroundJobsDomainSharedModule),
         typeof(AbpAuditLoggingDomainSharedModule),
         typeof(AbpIdentityDomainSharedModule),

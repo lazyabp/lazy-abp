@@ -1,4 +1,5 @@
 ﻿using Lazy.Abp.Mapper;
+using Lazy.Abp.MediaKit;
 using Lazy.Abp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
@@ -20,6 +21,7 @@ namespace Lazy.Abp
     [DependsOn(
         typeof(AbpDddDomainModule),
         typeof(LazyAbpDomainSharedModule),
+        typeof(MediaKitDomainModule),
         typeof(AbpIdentityDomainModule),
         typeof(AbpIdentityServerDomainModule),
         typeof(AbpPermissionManagementDomainModule),

@@ -12,8 +12,6 @@ namespace Lazy.Abp.EntityFrameworkCore
          * public DbSet<Question> Questions { get; set; }
          */
 
-        public DbSet<Media> Medias { get; set; }
-
         public LazyAbpDbContext(DbContextOptions<LazyAbpDbContext> options) 
             : base(options)
         {

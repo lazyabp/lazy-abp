@@ -11,11 +11,13 @@ using Volo.Abp.Account;
 using Volo.Abp.TenantManagement;
 using Lazy.Abp.Core;
 using Lazy.Abp.Files;
+using Lazy.Abp.MediaKit;
 
 namespace Lazy.Abp
 {
     [DependsOn(
         typeof(LazyAbpApplicationContractsModule),
+        typeof(MediaKitHttpApiModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAccountHttpApiModule),
         typeof(AbpIdentityHttpApiModule),
@@ -36,16 +38,12 @@ namespace Lazy.Abp
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            var configuration = context.Services.GetConfiguration();
-
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
                     .Get<LazyAbpResource>()
                     .AddBaseTypes(typeof(AbpUiResource));
             });
-
-            Configure<UploadTokenVerifyOption>(configuration.GetSection("FastDFSProxy:Default"));
         }
     }
 }

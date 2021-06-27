@@ -15,7 +15,7 @@
     <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="$(AbpVersion)" />
     <!--<PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="$(AbpVersion)" />-->
     <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="$(AbpVersion)" />
-    <PackageReference Include="Lazy.Abp.Core" Version="4.3.0-dev-02" />
+    <PackageReference Include="Lazy.Abp.MediaKit.HttpApi" Version="4.3.0-dev-02" />
     <ProjectReference Include="..\Lazy.Abp.Application.Contracts\Lazy.Abp.Application.Contracts.csproj" />
   </ItemGroup>
 

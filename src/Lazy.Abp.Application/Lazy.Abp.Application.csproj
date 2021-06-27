@@ -16,6 +16,7 @@
     <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="$(AbpVersion)" />
+    <PackageReference Include="Lazy.Abp.MediaKit.Application" Version="4.3.0-dev-02" />
     <ProjectReference Include="..\Lazy.Abp.Application.Contracts\Lazy.Abp.Application.Contracts.csproj" />
     <ProjectReference Include="..\Lazy.Abp.Domain\Lazy.Abp.Domain.csproj" />
   </ItemGroup>

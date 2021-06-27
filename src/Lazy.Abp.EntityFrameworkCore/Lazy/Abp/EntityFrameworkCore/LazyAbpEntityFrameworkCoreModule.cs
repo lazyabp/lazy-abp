@@ -1,4 +1,5 @@
 ﻿using Lazy.Abp.Files;
+using Lazy.Abp.MediaKit.EntityFrameworkCore;
 using Lazy.Abp.Notifications;
 using Lazy.Abp.Subscriptions;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace Lazy.Abp.EntityFrameworkCore
 {
     [DependsOn(
         typeof(LazyAbpDomainModule),
+        typeof(MediaKitEntityFrameworkCoreModule),
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
         typeof(AbpEntityFrameworkCoreModule),
@@ -39,7 +41,6 @@ namespace Lazy.Abp.EntityFrameworkCore
                 options.AddRepository<Notification, EfCoreNotificationRepository>();
                 options.AddRepository<UserNotification, EfCoreUserNotificationRepository>();
                 options.AddRepository<UserSubscribe, EfCoreUserSubscribeRepository>();
-                options.AddRepository<Media, EfCoreMediaRepository>();
 
                 options.AddDefaultRepositories(includeAllEntities: true);
             });

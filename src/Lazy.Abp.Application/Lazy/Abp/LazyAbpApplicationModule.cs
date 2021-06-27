@@ -8,11 +8,13 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Domain.Entities.Events.Distributed;
+using Lazy.Abp.MediaKit;
 
 namespace Lazy.Abp
 {
     [DependsOn(
         typeof(LazyAbpDomainModule),
+        typeof(MediaKitApplicationModule),
         typeof(LazyAbpApplicationContractsModule),
         typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule),
