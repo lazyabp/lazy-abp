@@ -1,8 +1,15 @@
-<Project> 
+<Project>
+  <PropertyGroup> 
+    <LangVersion>latest</LangVersion>
+    <AbpVersion>4.3.0</AbpVersion>
+    <Authors>LazyAbp</Authors>
+    <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.5.0">
@@ -10,4 +17,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
 </Project>
