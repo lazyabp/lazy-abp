@@ -32,14 +32,13 @@ namespace Lazy.Abp.Auditing.Logging
         {
             var auditLogCount = await AuditLogRepository
                 .GetCountAsync(input.StartTime, input.EndTime,
-                    input.HttpMethod, input.Url, input.UserName, input.ApplicationName,
+                    input.HttpMethod, input.Url, input.UserId, input.UserName, input.ApplicationName,
                     input.CorrelationId, input.MaxExecutionDuration, input.MinExecutionDuration,
                     input.HasException, input.HttpStatusCode);
 
             var auditLogs = await AuditLogRepository
-                .GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount,
-                input.StartTime, input.EndTime,
-                    input.HttpMethod, input.Url, input.UserName, input.ApplicationName,
+                .GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, input.StartTime, input.EndTime,
+                    input.HttpMethod, input.Url, input.UserId, input.UserName, input.ApplicationName,
                     input.CorrelationId, input.MaxExecutionDuration, input.MinExecutionDuration,
                     input.HasException, input.HttpStatusCode, includeDetails: false);
 

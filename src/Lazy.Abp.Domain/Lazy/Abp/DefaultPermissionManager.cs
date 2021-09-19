@@ -9,6 +9,7 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
+using Volo.Abp.SimpleStateChecking;
 
 namespace Lazy.Abp
 {
@@ -45,7 +46,7 @@ namespace Lazy.Abp
         protected IPermissionStore PermissionStore { get; }
         public DefaultPermissionManager(
             IPermissionDefinitionManager permissionDefinitionManager,
-            IPermissionStateManager permissionStateManager,
+            ISimpleStateCheckerManager<PermissionDefinition> simpleStateCheckerManager,
             IPermissionGrantRepository permissionGrantRepository,
             IPermissionStore permissionStore,
             IServiceProvider serviceProvider,
@@ -55,7 +56,7 @@ namespace Lazy.Abp
             IDistributedCache<PermissionGrantCacheItem> cache)
             : base(
                   permissionDefinitionManager,
-                  permissionStateManager,
+                  simpleStateCheckerManager,
                   permissionGrantRepository,
                   serviceProvider,
                   guidGenerator,
@@ -86,7 +87,7 @@ namespace Lazy.Abp
                 return result;
             }
 
-            if (!await PermissionStateManager.IsEnabledAsync(permission))
+            if (!await SimpleStateCheckerManager.IsEnabledAsync(permission))
             {
                 return result;
             }

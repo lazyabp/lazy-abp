@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup> 
     <LangVersion>latest</LangVersion>
-    <AbpVersion>4.3.*</AbpVersion>
+    <AbpVersion>4.4.*</AbpVersion>
     <Authors>LazyAbp</Authors>
     <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
   </PropertyGroup>
