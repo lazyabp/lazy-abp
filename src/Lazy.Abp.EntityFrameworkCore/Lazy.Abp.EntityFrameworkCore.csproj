@@ -17,7 +17,7 @@
     <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="$(AbpVersion)" />
-    <PackageReference Include="Lazy.Abp.MediaKit.EntityFrameworkCore" Version="4.3.0-dev-02" />
+    <PackageReference Include="Lazy.Abp.MediaKit.EntityFrameworkCore" Version="4.3.0-dev-03" />
     <ProjectReference Include="..\Lazy.Abp.Domain\Lazy.Abp.Domain.csproj" />
   </ItemGroup>
 
